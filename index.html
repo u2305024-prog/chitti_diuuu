@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mon er Kotha</title>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600&family=Caveat&family=Kalam&family=Patrick+Hand&family=Indie+Flower&family=Shadows+Into+Light&family=Dancing+Script&family=Atma&family=Galada&family=Baloo+Da+2&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+*{box-sizing:border-box}
+body{--a:#fff4e6;--b:#fde2e4;--c:#ffd9c7;--d:#d9c8f5;margin:0;min-height:100vh;font-family:'Hind Siliguri',sans-serif;color:#3b2f2f;
+background:radial-gradient(circle at 15% 20%,var(--c) 0,transparent 40%),radial-gradient(circle at 85% 80%,var(--d) 0,transparent 45%),linear-gradient(160deg,var(--a),var(--b));
+display:flex;justify-content:center;padding:62px 18px 24px;transition:background .4s}
+.bar{position:fixed;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:10px 16px;background:#ffffffaa;backdrop-filter:blur(8px);z-index:5}
+#sw{display:flex;gap:8px}
+#sw i{width:24px;height:24px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px #0003;cursor:pointer}
+#sw i.on{box-shadow:0 0 0 2px #b5475a}
+#lg{border:0;background:#b5475a;color:#fff;border-radius:20px;padding:6px 14px;font:600 .95rem 'Hind Siliguri';cursor:pointer}
+.s{display:none;width:100%;max-width:560px;margin:auto;animation:f .4s}
+.s.on{display:block}
+@keyframes f{from{opacity:0;transform:translateY(10px)}to{opacity:1}}
+h1{font-family:'Galada','Dancing Script',cursive;font-size:3rem;margin:.2em 0;color:#b5475a;text-align:center}
+h2{text-align:center;margin:.3em 0 .8em}
+p.sub{text-align:center;font-size:1.1rem;opacity:.8}
+.btn{display:block;width:100%;padding:14px;border:0;border-radius:14px;background:#b5475a;color:#fff;font:600 1.1rem 'Hind Siliguri';cursor:pointer;margin-top:12px}
+.btn.alt{background:#fff;color:#b5475a;border:2px solid #b5475a}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.opt{background:#fff;border:2px solid transparent;border-radius:18px;padding:18px 8px;text-align:center;cursor:pointer;font:inherit;box-shadow:0 4px 14px #0001}
+.opt b{display:block;font-size:2.2rem}
+.opt.sel{border-color:#b5475a;background:#fff0f2}
+input,textarea,select{width:100%;padding:11px;margin:5px 0 10px;border:1.5px solid #e2c6c6;border-radius:12px;font:1.1rem 'Hind Siliguri';background:#fffdfb}
+textarea{min-height:150px;resize:vertical}
+label{font-weight:600;font-size:.95rem}
+.box{background:#ffffffd9;border-radius:26px;padding:16px;box-shadow:0 12px 34px #0001;backdrop-filter:blur(6px)}
+#msg{min-height:230px;border:0;background:transparent;font-size:1.6rem;line-height:1.5;margin:0;padding:8px;outline:0;resize:none}
+.lb{font-weight:600;font-size:.9rem;opacity:.75;margin:12px 4px 6px}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:4px 2px 8px}
+.chip{flex:0 0 auto;border:2px solid #eadada;background:#fff;border-radius:14px;padding:8px 14px;font-size:1.3rem;cursor:pointer;color:#3b2f2f}
+.chip.on,.th.on{border-color:#b5475a;box-shadow:0 0 0 2px #b5475a33}
+.th{flex:0 0 auto;width:78px;height:96px;border-radius:14px;border:3px solid #fff;cursor:pointer;display:flex;align-items:flex-end;justify-content:center;padding:0 0 7px;font:600 .8rem 'Hind Siliguri';color:#fff;text-shadow:0 1px 3px #0007}
+.glow{width:150px;height:150px;margin:0 auto;border-radius:50%;background:radial-gradient(#fff 0,#fff0 70%);display:flex;align-items:center;justify-content:center}
+.fl{animation:fl 3s ease-in-out infinite}@keyframes fl{50%{transform:translateY(-10px)}}
+h1{background:linear-gradient(90deg,#b5475a,#8e5bd6);-webkit-background-clip:text;background-clip:text;color:transparent}
+#hd{border:0;border-bottom:1.5px dashed #e2c6c6;border-radius:0;background:transparent;margin:0 0 6px;font-size:1.25rem;font-weight:600;outline:0}
+.env{position:relative;width:270px;height:180px;margin:44px auto 24px;background:#f1d3bb;border-radius:8px;box-shadow:0 16px 34px #0003;cursor:pointer}
+.env::before{content:'';position:absolute;inset:0;border-radius:8px;background:linear-gradient(to top right,#e9c4a6 50%,transparent 50%) left/50% 100% no-repeat,linear-gradient(to top left,#e9c4a6 50%,transparent 50%) right/50% 100% no-repeat}
+.flp{position:absolute;top:0;left:0;border-left:135px solid transparent;border-right:135px solid transparent;border-top:105px solid #e2b896;transform-origin:top;transition:transform .7s;z-index:2}
+.sl{position:absolute;top:82px;left:50%;margin-left:-23px;width:46px;height:46px;border-radius:50%;background:#c8475b;display:flex;align-items:center;justify-content:center;font-size:1.3rem;z-index:3;transition:opacity .4s;box-shadow:0 3px 8px #0004}
+.env.open{animation:none}.env.open .flp{transform:rotateX(180deg);z-index:0}.env.open .sl{opacity:0}
+.hero{font-size:5rem;text-align:center}
+#img{width:100%;border-radius:6px;box-shadow:0 10px 28px #0003;display:block}
+#note{text-align:center;font-size:.9rem;opacity:.7;margin-top:8px}
+/* ---------- card ---------- */
+#stage{position:absolute;left:-9999px;top:0}
+#card{width:560px;position:relative;overflow:hidden}
+#card .in{min-height:620px;position:relative;z-index:1}
+#card .hd{font-family:'Galada','Dancing Script',cursive;font-size:2.6rem;margin-bottom:14px;line-height:1.3}
+#card .to,#card .dt,#card .fr{display:none}
+#card .to{font-size:1.9rem;margin-bottom:8px}
+#card .msg{font-size:1.7rem;line-height:38px;white-space:pre-wrap;word-break:break-word}
+#card .dt{font-size:1.45rem;margin-top:16px;font-weight:bold}
+#card .fr{font-size:1.8rem;text-align:right;margin-top:20px;white-space:pre-wrap}
+.t-letter{background:#eadcc6;padding:36px 28px}
+.t-letter::before{content:'';position:absolute;top:14px;left:50%;width:120px;height:32px;margin-left:-60px;background:#f2d36d99;transform:rotate(-3deg);z-index:2}
+.t-letter .in{background:#fffdf7;padding:40px 26px 30px 72px;box-shadow:0 8px 20px #0003}
+.t-letter .in::before{content:'';position:absolute;left:54px;top:0;bottom:0;border-left:2px solid #f0a3a3}
+.t-letter .msg{background:repeating-linear-gradient(transparent 0 37px,#c9dcee 37px 38px)}
+.t-gift{background:#fff}
+.t-gift::before,.t-gift::after{content:'';position:absolute;left:0;right:0;height:84px;background:repeating-linear-gradient(90deg,#f7c6cf 0 12px,#fff 12px 24px)}
+.t-gift::before{top:0}.t-gift::after{bottom:0}
+.t-gift .in{padding:140px 44px 130px;text-align:center;color:#5e4247}
+.t-gift .hd{font-size:3.7rem;color:#6b4a4f;font-family:'Dancing Script','Galada',cursive;margin-bottom:26px}
+.t-wishes{background:radial-gradient(circle at 8% 6%,#f9a8b8 0,transparent 30%),radial-gradient(circle at 92% 4%,#f7b6c9 0,transparent 32%),radial-gradient(circle at 50% 0,#fbc9d4 0,transparent 35%),#fde3e7;padding:26px 26px 44px}
+.t-wishes .in{background:#fdeff0;border:2px dashed #b4555f;border-radius:220px 220px 26px 26px;padding:112px 30px 84px;text-align:center;color:#6e2f38}
+.t-wishes .hd{font-size:3.5rem;color:#a2444f;font-family:'Dancing Script','Galada',cursive}
+.t-invite{background:#f3f0e8;padding:34px}
+.t-invite .in{padding:96px 38px;text-align:center;color:#3f4a3c}
+.t-invite .hd{font-family:'Dancing Script','Galada',cursive;font-size:3.5rem;color:#3f4a3c}
+.t-invite .hd::after{content:'';display:block;width:70px;height:2px;background:#8fae8b;margin:12px auto 0}
+.dc{position:absolute;inset:0;pointer-events:none}
+.sp{position:absolute;width:230px;height:230px}.tr{top:0;right:0}.bl{bottom:0;left:0;transform:rotate(180deg)}
+.bn{position:absolute;top:34px;left:100px;width:360px}.cf{position:absolute;bottom:0;left:0;width:560px}
+</style>
+</head>
+<body>
+<div class="bar"><div id="sw"></div><button id="lg" onclick="tl()">EN</button></div>
+
+<div class="s on" id="s0" style="text-align:center;padding:30px 0">
+  <div class="glow"><div class="hero fl">💌</div></div>
+  <h1 data-i="title"></h1>
+  <p class="sub" data-i="sub"></p>
+  <button class="btn" onclick="go(1)" data-i="start" style="max-width:300px;margin:26px auto 0"></button>
+</div>
+
+<div class="s" id="s4" style="text-align:center;padding-top:30px">
+  <p class="sub" data-i="envT"></p>
+  <div class="env fl" id="env" onclick="openEnv()"><div class="flp"></div><div class="sl" id="seal">💌</div></div>
+  <p class="sub" data-i="tap" style="font-size:.95rem"></p>
+</div>
+
+<div class="s" id="s1">
+  <h2 data-i="what"></h2>
+  <div class="grid" id="types"></div>
+  <button class="btn" onclick="go(2)" data-i="next"></button>
+</div>
+
+<div class="s" id="s2">
+  <h2 id="ttl"></h2>
+  <div class="box">
+    <input id="hd" data-p="hdP"><textarea id="msg" data-p="msgP"></textarea>
+    <div class="lb" data-i="font"></div><div class="chips" id="fchips"></div>
+    <div class="lb" data-i="theme"></div><div class="chips" id="tchips"></div>
+  </div>
+  <button class="btn" onclick="make()" data-i="next"></button>
+  <button class="btn alt" onclick="go(1)" data-i="back"></button>
+</div>
+
+<div class="s" id="s3">
+  <img id="img" alt="card">
+  <button class="btn" onclick="save()" data-i="save"></button>
+  <div id="own">
+    <button class="btn" onclick="shareLink()" data-i="share"></button>
+    <button class="btn alt" onclick="copyLink()" data-i="copy"></button>
+    <p id="note" data-i="note"></p>
+    <button class="btn alt" onclick="go(2)" data-i="edit"></button>
+  </div>
+  <div id="viewer" style="display:none"><button class="btn alt" onclick="location.href=location.pathname" data-i="mine"></button></div>
+</div>
+
+<div id="stage"><div id="card"><div class="dc"></div><div class="in"><div class="hd"></div><div class="to"></div><div class="msg"></div><div class="dt"></div><div class="fr"></div></div></div></div>
+
+<script>
+const L={
+bn:{title:'মনের কথা',sub:'মনের কথা সুন্দর করে লিখে প্রিয়জনকে পাঠাও।',hdP:'শিরোনাম (ঐচ্ছিক) — যেমন: তোমার জন্য উপহার',envT:'তোমার জন্য একটা খাম এসেছে',tap:'খামটিতে ট্যাপ করো',start:'শুরু করি →',what:'কী বানাবে?',next:'পরের ধাপ →',back:'← ফিরে যাও',
+ to:'কাকে?',toP:'যেমন: মা, রিমি, বন্ধুরা...',msg:'তোমার লেখা',msgP:'এখানে মনের কথা লেখো...',theme:'কার্ডের থিম',dt:'তারিখ ও স্থান',dtP:'যেমন: ২০ ডিসেম্বর, সন্ধ্যা ৬টা, আমাদের বাসা',
+ fr:'ইতি / প্রেরক',frP:'তোমার নাম',font:'হাতের লেখার ধরন',save:'⬇ ছবি ডাউনলোড করো',share:'↗ লিংক শেয়ার করো',copy:'🔒 প্রাইভেট লিংক কপি করো',
+ note:'এই লিংক যার কাছে যাবে, শুধু সে-ই কার্ডটি দেখতে পাবে। লেখা কোনো সার্ভারে জমা থাকে না, লিংকের ভেতরেই থাকে।',edit:'✏ আবার এডিট করো',mine:'নিজে একটা বানাও 💌',
+ empty:'আগে কিছু লেখো 🙂',copied:'লিংক কপি হয়েছে ✅',dear:'প্রিয় ',yours:'ইতি,\n',shareT:'তোমার জন্য একটা কার্ড 💌',
+ letter:'চিঠি',gift:'গিফট কার্ড',wishes:'শুভেচ্ছা কার্ড',invite:'নিমন্ত্রণ কার্ড',hg:'তোমার জন্য উপহার',hw:'শুভেচ্ছা',hi:'নিমন্ত্রণ',w:'লেখো'},
+en:{title:'Mon er Kotha',sub:'Write from the heart, and send it to someone you love.',hdP:'Title (optional) — e.g. A gift for you',envT:'An envelope has arrived for you',tap:'Tap the envelope to open',start:'Get started →',what:'What do you want to make?',next:'Next →',back:'← Back',
+ to:'To',toP:'e.g. Mom, Rimi, friends...',msg:'Your message',msgP:'Write from the heart...',theme:'Card theme',dt:'Date & place',dtP:'e.g. 20 Dec, 6 PM, our home',
+ fr:'From',frP:'Your name',font:'Handwriting style',save:'⬇ Download photo',share:'↗ Share link',copy:'🔒 Copy private link',
+ note:'Only the person who gets this link can see the card. Nothing is stored on a server; the message lives inside the link.',edit:'✏ Edit again',mine:'Make your own 💌',
+ empty:'Write something first 🙂',copied:'Link copied ✅',dear:'Dear ',yours:'With love,\n',shareT:'A card for you 💌',
+ letter:'Letter',gift:'Gift card',wishes:'Wishes card',invite:'Invitation',hg:'A Gift For You',hw:'Best Wishes',hi:"You're Invited",w:'Write your'}};
+const TN={bn:{letter:'কাগজ',gift:'রিবন',wishes:'রঙিন',invite:'ক্লাসিক'},en:{letter:'Paper',gift:'Ribbon',wishes:'Colorful',invite:'Classic'}};
+const TB={letter:'linear-gradient(#0002,#0002),repeating-linear-gradient(#eadcc6 0 11px,#c9dcee 11px 12px)',gift:'linear-gradient(#0002,#0002),repeating-linear-gradient(90deg,#f7c6cf 0 6px,#fff 6px 12px)',wishes:'linear-gradient(160deg,#f7a1b5,#fde3e7)',invite:'linear-gradient(135deg,#f3f0e8 40%,#7fa17c)'};
+const spray=(cls,c)=>`<svg class="sp ${cls}" viewBox="0 0 220 220"><g transform="translate(200 20)">`+[100,128,156,184,212].map((a,i)=>`<g transform="rotate(${a}) scale(${1.9-i*.12})"><path d="M0 0C14-34 52-40 74-6C48 28 12 30 0 0Z" fill="${c}" opacity="${.5+i*.1}"/></g>`).join('')+`<circle cx="-6" cy="10" r="30" fill="#fff" stroke="#e2dac6"/><circle cx="-44" cy="34" r="20" fill="#fff" stroke="#e2dac6"/><circle cx="-6" cy="10" r="6" fill="#f3d98b"/></g></svg>`;
+const bunt=()=>{let t='';for(let i=0;i<6;i++){const x=40+i*56,y=8+(1-((x-180)/180)**2)*21;t+=`<polygon points="${x-20},${y} ${x+20},${y} ${x},${y+40}" fill="${['#c8475b','#e9788a'][i%2]}"/>`}return `<svg class="bn" viewBox="0 0 360 80"><path d="M0 8Q180 50 360 8" stroke="#a2444f" fill="none" stroke-width="2"/>${t}</svg>`};
+const conf=()=>`<svg class="cf" viewBox="0 0 560 70">`+[[30,50,26,'#f6b8c6'],[80,64,18,'#f9d46b'],[500,54,28,'#a9d6c8'],[535,20,16,'#f3a0b5'],[455,66,16,'#f9d46b'],[12,12,12,'#a9d6c8']].map(c=>`<circle cx="${c[0]}" cy="${c[1]}" r="${c[2]}" fill="${c[3]}" opacity=".85"/>`).join('')+`</svg>`;
+const DECO={letter:()=>'',gift:()=>'',wishes:()=>bunt()+conf(),invite:()=>spray('tr','#6f9470')+spray('bl','#6f9470')};
+const E={letter:'✉️',gift:'🎁',wishes:'🎉',invite:'💐'};
+const BG={peach:['#fff4e6','#fde2e4','#ffd9c7','#d9c8f5'],mint:['#effaf3','#dff3ee','#c9efd9','#cfe8f7'],sky:['#eef6ff','#e3ebff','#c9e2ff','#f5d6ee'],lilac:['#f6f0ff','#ece4fb','#e0d1fa','#ffd9e6'],cream:['#fffaf0','#f8f1e3','#fbe8c3','#e6f0d4']};
+const F=['Atma','Galada','Baloo Da 2','Caveat','Kalam','Patrick Hand','Indie Flower','Shadows Into Light','Dancing Script'];
+let lang='bn',type='letter',fnt='Atma',thm='letter',blob=null,cur=null;
+const $=id=>document.getElementById(id);
+const fam=f=>`'${f}','Atma','Galada',cursive`;
+
+function ui(){
+  document.querySelectorAll('[data-i]').forEach(e=>e.textContent=L[lang][e.dataset.i]);
+  document.querySelectorAll('[data-p]').forEach(e=>e.placeholder=L[lang][e.dataset.p]);
+  $('lg').textContent=lang=='bn'?'EN':'বাংলা';document.documentElement.lang=lang;
+  $('types').innerHTML=Object.keys(E).map(k=>`<button class="opt ${k==type?'sel':''}" data-k="${k}"><b>${E[k]}</b>${L[lang][k]}</button>`).join('');
+  $('fchips').innerHTML=F.map(f=>`<button class="chip ${f==fnt?'on':''}" style="font-family:${fam(f)}" data-f="${f}">${lang=='bn'?'আমার লেখা':'My words'}</button>`).join('');
+  $('tchips').innerHTML=Object.keys(TB).map(k=>`<div class="th ${k==thm?'on':''}" style="background:${TB[k]}" data-k="${k}">${TN[lang][k]}</div>`).join('');
+  $('ttl').textContent=E[type]+' '+L[lang][type];
+}
+function tl(){lang=lang=='bn'?'en':'bn';ui()}
+function bg(k){const v=BG[k],s=document.body.style;['a','b','c','d'].forEach((x,i)=>s.setProperty('--'+x,v[i]));
+  document.querySelectorAll('#sw i').forEach(i=>i.classList.toggle('on',i.dataset.k==k));try{localStorage.bg=k}catch(e){}}
+$('sw').innerHTML=Object.keys(BG).map(k=>`<i data-k="${k}" style="background:${BG[k][2]}" onclick="bg('${k}')"></i>`).join('');
+try{bg(localStorage.bg||'peach')}catch(e){bg('peach')}
+$('types').onclick=e=>{const b=e.target.closest('.opt');if(!b)return;type=b.dataset.k;thm=type;
+  document.querySelectorAll('.opt').forEach(x=>x.classList.toggle('sel',x==b));ui()};
+$('msg').style.fontFamily=fam(fnt);
+$('fchips').onclick=e=>{const b=e.target.closest('.chip');if(!b)return;fnt=b.dataset.f;$('msg').style.fontFamily=fam(fnt);
+  document.querySelectorAll('.chip').forEach(x=>x.classList.toggle('on',x==b))};
+$('tchips').onclick=e=>{const b=e.target.closest('.th');if(!b)return;thm=b.dataset.k;
+  document.querySelectorAll('.th').forEach(x=>x.classList.toggle('on',x==b))};
+function openEnv(){$('env').classList.add('open');setTimeout(()=>go(3),800)}
+function go(n){
+  document.querySelectorAll('.s').forEach(s=>s.classList.remove('on'));$('s'+n).classList.add('on');
+  scrollTo(0,0);
+}
+function enc(o){return btoa(unescape(encodeURIComponent(JSON.stringify(o)))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'')}
+function dec(s){s=s.replace(/-/g,'+').replace(/_/g,'/');return JSON.parse(decodeURIComponent(escape(atob(s))))}
+
+async function draw(o){
+  const t=L[o.l],c=$('card');c.className='t-'+(o.th||o.t);c.style.fontFamily=fam(o.f);
+  const hd=o.h||'';
+  const q=s=>c.querySelector(s);
+  q('.hd').textContent=hd;
+  q('.msg').textContent=o.m;q('.dc').innerHTML=DECO[o.th||o.t]();
+  q('.hd').style.display=hd?'block':'none';
+  try{await document.fonts.load(`24px "${o.f}"`,o.m)}catch(e){}
+  await document.fonts.ready;
+  const cv=await html2canvas(c,{scale:2,backgroundColor:null});
+  $('img').src=cv.toDataURL('image/png');
+  blob=await new Promise(r=>cv.toBlob(r,'image/png'));
+}
+async function make(){
+  if(!$('msg').value.trim()){alert(L[lang].empty);return}
+  cur={t:type,th:thm,l:lang,h:$('hd').value.trim(),m:$('msg').value.trim(),f:fnt};
+  $('own').style.display='block';$('viewer').style.display='none';go(3);await draw(cur);
+}
+const link=()=>location.origin+location.pathname+'#v='+enc(cur);
+function save(){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='mon-er-kotha.png';a.click()}
+async function copyLink(){try{await navigator.clipboard.writeText(link());alert(L[lang].copied)}catch(e){prompt('Link:',link())}}
+async function shareLink(){
+  if(navigator.share){try{await navigator.share({title:L[lang].title,text:L[lang].shareT,url:link()})}catch(e){}}
+  else copyLink();
+}
+ui();
+if(location.hash.startsWith('#v=')){
+  try{cur=dec(location.hash.slice(3));type=cur.t;lang=cur.l||'bn';ui();$('seal').textContent=E[type];go(4);
+    $('own').style.display='none';$('viewer').style.display='block';
+    document.fonts.ready.then(()=>draw(cur));
+  }catch(e){}
+}
+</script>
+</body>
+</html>
