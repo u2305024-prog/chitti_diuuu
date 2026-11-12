@@ -124,20 +124,22 @@ h1{background:linear-gradient(90deg,#b5475a,#8e5bd6);-webkit-background-clip:tex
     <p id="note" data-i="note"></p>
     <button class="btn alt" onclick="go(2)" data-i="edit"></button>
   </div>
-  <div id="viewer" style="display:none"><button class="btn alt" onclick="location.href=location.pathname" data-i="mine"></button></div>
+  <div id="viewer" style="display:none">
+    <button class="btn" onclick="shareImg(true)" data-i="story"></button>
+    <button class="btn alt" onclick="shareImg(false)" data-i="feed"></button><button class="btn alt" onclick="location.href=location.pathname" data-i="mine"></button></div>
 </div>
 
 <div id="stage"><div id="card"><div class="dc"></div><div class="in"><div class="hd"></div><div class="to"></div><div class="msg"></div><div class="dt"></div><div class="fr"></div></div></div></div>
 
 <script>
 const L={
-bn:{title:'মনের কথা',sub:'মনের কথা সুন্দর করে লিখে প্রিয়জনকে পাঠাও।',hdP:'শিরোনাম (ঐচ্ছিক) — যেমন: তোমার জন্য উপহার',envT:'তোমার জন্য একটা খাম এসেছে',tap:'খামটিতে ট্যাপ করো',start:'শুরু করি →',what:'কী বানাবে?',next:'পরের ধাপ →',back:'← ফিরে যাও',
+bn:{title:'মনের কথা',story:'📱 স্টোরিতে শেয়ার করো',feed:'🖼 ফিডে / পোস্টে শেয়ার করো',noShare:'এই ডিভাইসে সরাসরি শেয়ার হচ্ছে না। ছবিটি ডাউনলোড হয়েছে, অ্যাপে গিয়ে আপলোড করো।',sub:'মনের কথা সুন্দর করে লিখে প্রিয়জনকে পাঠাও।',hdP:'শিরোনাম (ঐচ্ছিক) — যেমন: তোমার জন্য উপহার',envT:'তোমার জন্য একটা খাম এসেছে',tap:'খামটিতে ট্যাপ করো',start:'শুরু করি →',what:'কী বানাবে?',next:'পরের ধাপ →',back:'← ফিরে যাও',
  to:'কাকে?',toP:'যেমন: মা, রিমি, বন্ধুরা...',msg:'তোমার লেখা',msgP:'এখানে মনের কথা লেখো...',theme:'কার্ডের থিম',dt:'তারিখ ও স্থান',dtP:'যেমন: ২০ ডিসেম্বর, সন্ধ্যা ৬টা, আমাদের বাসা',
  fr:'ইতি / প্রেরক',frP:'তোমার নাম',font:'হাতের লেখার ধরন',save:'⬇ ছবি ডাউনলোড করো',share:'↗ লিংক শেয়ার করো',copy:'🔒 প্রাইভেট লিংক কপি করো',
  note:'এই লিংক যার কাছে যাবে, শুধু সে-ই কার্ডটি দেখতে পাবে। লেখা কোনো সার্ভারে জমা থাকে না, লিংকের ভেতরেই থাকে।',edit:'✏ আবার এডিট করো',mine:'নিজে একটা বানাও 💌',
  empty:'আগে কিছু লেখো 🙂',copied:'লিংক কপি হয়েছে ✅',dear:'প্রিয় ',yours:'ইতি,\n',shareT:'তোমার জন্য একটা কার্ড 💌',
  letter:'চিঠি',gift:'গিফট কার্ড',wishes:'শুভেচ্ছা কার্ড',invite:'নিমন্ত্রণ কার্ড',hg:'তোমার জন্য উপহার',hw:'শুভেচ্ছা',hi:'নিমন্ত্রণ',w:'লেখো'},
-en:{title:'Mon er Kotha',sub:'Write from the heart, and send it to someone you love.',hdP:'Title (optional) — e.g. A gift for you',envT:'An envelope has arrived for you',tap:'Tap the envelope to open',start:'Get started →',what:'What do you want to make?',next:'Next →',back:'← Back',
+en:{title:'Mon er Kotha',story:'📱 Share to story',feed:'🖼 Share to feed / post',noShare:"Direct sharing isn't available here. The image was downloaded, so upload it from your app.",sub:'Write from the heart, and send it to someone you love.',hdP:'Title (optional) — e.g. A gift for you',envT:'An envelope has arrived for you',tap:'Tap the envelope to open',start:'Get started →',what:'What do you want to make?',next:'Next →',back:'← Back',
  to:'To',toP:'e.g. Mom, Rimi, friends...',msg:'Your message',msgP:'Write from the heart...',theme:'Card theme',dt:'Date & place',dtP:'e.g. 20 Dec, 6 PM, our home',
  fr:'From',frP:'Your name',font:'Handwriting style',save:'⬇ Download photo',share:'↗ Share link',copy:'🔒 Copy private link',
  note:'Only the person who gets this link can see the card. Nothing is stored on a server; the message lives inside the link.',edit:'✏ Edit again',mine:'Make your own 💌',
@@ -152,7 +154,7 @@ const DECO={letter:()=>'',gift:()=>'',wishes:()=>bunt()+conf(),invite:()=>spray(
 const E={letter:'✉️',gift:'🎁',wishes:'🎉',invite:'💐'};
 const BG={peach:['#fff4e6','#fde2e4','#ffd9c7','#d9c8f5'],mint:['#effaf3','#dff3ee','#c9efd9','#cfe8f7'],sky:['#eef6ff','#e3ebff','#c9e2ff','#f5d6ee'],lilac:['#f6f0ff','#ece4fb','#e0d1fa','#ffd9e6'],cream:['#fffaf0','#f8f1e3','#fbe8c3','#e6f0d4']};
 const F=['Atma','Galada','Baloo Da 2','Caveat','Kalam','Patrick Hand','Indie Flower','Shadows Into Light','Dancing Script'];
-let lang='bn',type='letter',fnt='Atma',thm='letter',blob=null,cur=null;
+let cvs=null,lang='bn',type='letter',fnt='Atma',thm='letter',blob=null,cur=null;
 const $=id=>document.getElementById(id);
 const fam=f=>`'${f}','Atma','Galada',cursive`;
 
@@ -195,7 +197,7 @@ async function draw(o){
   try{await document.fonts.load(`24px "${o.f}"`,o.m)}catch(e){}
   await document.fonts.ready;
   const cv=await html2canvas(c,{scale:2,backgroundColor:null});
-  $('img').src=cv.toDataURL('image/png');
+  cvs=cv;$('img').src=cv.toDataURL('image/png');
   blob=await new Promise(r=>cv.toBlob(r,'image/png'));
 }
 async function make(){
@@ -205,6 +207,20 @@ async function make(){
 }
 const link=()=>location.origin+location.pathname+'#v='+enc(cur);
 function save(){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='mon-er-kotha.png';a.click()}
+async function shareImg(story){
+  let b=blob;
+  if(story){
+    const w=1080,h=1920,c=document.createElement('canvas');c.width=w;c.height=h;const x=c.getContext('2d'),cs=getComputedStyle(document.body);
+    const g=x.createLinearGradient(0,0,w,h);g.addColorStop(0,cs.getPropertyValue('--a').trim());g.addColorStop(.5,cs.getPropertyValue('--c').trim());g.addColorStop(1,cs.getPropertyValue('--d').trim());
+    x.fillStyle=g;x.fillRect(0,0,w,h);
+    let cw=960,ch=cvs.height*cw/cvs.width;if(ch>1700){ch=1700;cw=cvs.width*ch/cvs.height}
+    x.shadowColor='#0005';x.shadowBlur=40;x.shadowOffsetY=16;x.drawImage(cvs,(w-cw)/2,(h-ch)/2,cw,ch);
+    b=await new Promise(r=>c.toBlob(r,'image/png'));
+  }
+  const f=new File([b],'mon-er-kotha.png',{type:'image/png'});
+  if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f]})}catch(e){}}
+  else{const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='mon-er-kotha.png';a.click();alert(L[lang].noShare)}
+}
 async function copyLink(){try{await navigator.clipboard.writeText(link());alert(L[lang].copied)}catch(e){prompt('Link:',link())}}
 async function shareLink(){
   if(navigator.share){try{await navigator.share({title:L[lang].title,text:L[lang].shareT,url:link()})}catch(e){}}
